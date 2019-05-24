@@ -365,12 +365,20 @@ class HaWeatherCard extends LocalizeMixin(EventsMixin(PolymerElement)) {
 
   computeDate(data) {
     const date = new Date(data);
-    return date.toLocaleDateString(this.hass.language, { weekday: "short" });
+    var options = { weekday: "short" };
+    if (this.config && this.config.timezone) {
+      options['timeZone'] = this.config.timezone;
+    }
+    return date.toLocaleDateString(this.hass.language, options);
   }
 
   computeTime(data) {
     const date = new Date(data);
-    return date.toLocaleTimeString(this.hass.language, { hour: "numeric" });
+    var options = { hour: "numeric" };
+    if (this.config && this.config.timezone) {
+      options['timeZone'] = this.config.timezone;
+    }
+    return date.toLocaleTimeString(this.hass.language, options);
   }
 
   _computeRTL(hass) {
